@@ -2,6 +2,17 @@
 {
     public class Box
     {
-        
+        public int Id { get; set; }
+        public Piece.Piece Piece { get; set; }
+        public Box(int id, Piece.Piece piece = null)
+        {
+            Id = id;
+            Piece = piece;
+        }
+
+        public override string ToString()
+        {
+            return Id.ToString();
+        }
     }
 }

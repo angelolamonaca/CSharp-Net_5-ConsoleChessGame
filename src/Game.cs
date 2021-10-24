@@ -1,12 +1,7 @@
-﻿using System;
-
-namespace ConsoleChessGame
+﻿namespace ConsoleChessGame
 {
-    class Program
+    public class Game
     {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello World!");
-        }
+        
     }
 }

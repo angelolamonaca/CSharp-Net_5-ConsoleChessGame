@@ -1,6 +1,6 @@
 ﻿namespace ConsoleChessGame.Piece
 {
-    public class Bishop
+    public class Bishop : Piece
     {
         
     }
