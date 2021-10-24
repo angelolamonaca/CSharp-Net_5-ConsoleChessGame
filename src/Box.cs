@@ -12,7 +12,8 @@
 
         public override string ToString()
         {
-            return Id.ToString();
+            if (Piece != null) return Piece.ToString();
+            else return ".";
         }
     }
 }
