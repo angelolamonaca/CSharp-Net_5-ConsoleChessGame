@@ -1,4 +1,5 @@
 ﻿using System;
+using ConsoleChessGame.Enums;
 using ConsoleChessGame.Piece;
 
 namespace ConsoleChessGame
@@ -12,7 +13,30 @@ namespace ConsoleChessGame
             {
                 for (int j = 0; j < 8; j++, id+=10)
                 {
-                    _chessBoard[i, j] = i is 1 or 6? new Box(id, new Pawn()) : new Box(id);
+                    _chessBoard[i, j] = i switch
+                    {
+                        0 => j switch
+                        {
+                            0 or 7 => new Box(id, new Rook(Color.Black)),
+                            1 or 6 => new Box(id, new Knight(Color.Black)),
+                            2 or 5 => new Box(id, new Bishop(Color.Black)),
+                            3 => new Box(id, new Queen(Color.Black)),
+                            4 => new Box(id, new King(Color.Black)),
+                            _ => throw new ArgumentOutOfRangeException()
+                        },
+                        1 => new Box(id, new Pawn(Color.Black)),
+                        6 => new Box(id, new Pawn(Color.White)),
+                        7 => j switch
+                        {
+                            0 or 7 => new Box(id, new Rook(Color.White)),
+                            1 or 6 => new Box(id, new Knight(Color.White)),
+                            2 or 5 => new Box(id, new Bishop(Color.White)),
+                            3 => new Box(id, new Queen(Color.White)),
+                            4 => new Box(id, new King(Color.White)),
+                            _ => throw new ArgumentOutOfRangeException()
+                        },
+                        _ => new Box(id)
+                    };
                 }
             }
         }
@@ -22,9 +46,16 @@ namespace ConsoleChessGame
             Piece.Piece piece = null;
             try
             {
-                if (pos < 11 || pos > 88) throw new ArgumentException("Position value is out of range, it should be an integer between 11 and 88", nameof(pos));
-                int row = Math.Abs(Convert.ToInt32(Char.GetNumericValue(pos.ToString()[1]))-8);
-                int column = Convert.ToInt32(Char.GetNumericValue(pos.ToString()[0]))-1;
+                if (pos is < 11 or > 88) 
+                    throw new ArgumentException("Position value is out of range, it should be an integer between 11 and 88", 
+                        nameof(pos));
+                var row = Math.Abs(
+                    Convert.ToInt32(
+                        char.GetNumericValue(
+                            pos.ToString()[1]))-8);
+                var column = Convert.ToInt32(
+                    char.GetNumericValue(
+                        pos.ToString()[0]))-1;
                 piece = _chessBoard[row, column].Piece;
 
             }
@@ -38,9 +69,9 @@ namespace ConsoleChessGame
 
         public int GetPos(Piece.Piece piece)
         {
-            for (int i = 0; i < 8; i++)
+            for (var i = 0; i < 8; i++)
             {
-                for (int j = 0; j < 8; j++)
+                for (var j = 0; j < 8; j++)
                 {
                     if (_chessBoard[i, j].Piece == piece) return _chessBoard[i, j].Id;
                 }
@@ -50,10 +81,10 @@ namespace ConsoleChessGame
 
         public override string ToString()
         {
-            string result = "";
-            for (int i = 0; i < 8; i++, result += "\n")
+            var result = "";
+            for (var i = 0; i < 8; i++, result += "\n")
             {
-                for (int j = 0; j < 8; j++)
+                for (var j = 0; j < 8; j++)
                 {
                     result += _chessBoard[i,j] + " ";
                 }

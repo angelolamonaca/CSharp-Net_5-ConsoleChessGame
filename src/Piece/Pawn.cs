@@ -1,9 +1,13 @@
 ﻿using System.Collections.Generic;
+using ConsoleChessGame.Enums;
 
 namespace ConsoleChessGame.Piece
 {
     public class Pawn : Piece
     {
+        public Pawn(Color color) : base(color)
+        {
+        }
         public override bool PotentialMove(Status status, int target)
         {
             throw new System.NotImplementedException();
@@ -22,6 +26,11 @@ namespace ConsoleChessGame.Piece
         public override List<int> PotentialAttackList(Status status, int target)
         {
             throw new System.NotImplementedException();
+        }
+
+        public override string ToString()
+        {
+            return Color == Color.Black ? "p" : "P";
         }
     }
 }

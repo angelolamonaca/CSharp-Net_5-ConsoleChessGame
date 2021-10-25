@@ -8,7 +8,6 @@ namespace ConsoleChessGame
         {
             ChessBoard board = new ChessBoard();
             Console.WriteLine(board);
-            Console.WriteLine(board.Get(12).GetType());
         }
     }
 }
