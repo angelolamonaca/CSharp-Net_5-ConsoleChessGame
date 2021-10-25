@@ -69,12 +69,25 @@ namespace ConsoleChessGame
 
         public int GetPos(Piece.Piece piece)
         {
-            for (var i = 0; i < 8; i++)
+            try
             {
-                for (var j = 0; j < 8; j++)
+                if (piece == null) 
+                    throw new ArgumentException("The piece cannot be null, it must be a valid piece.",
+                        nameof(piece));
+                for (var i = 0; i < 8; i++)
                 {
-                    if (_chessBoard[i, j].Piece == piece) return _chessBoard[i, j].Id;
+                    for (var j = 0; j < 8; j++)
+                    {
+                        if (_chessBoard[i, j].Piece == piece) return _chessBoard[i, j].Id;
+                    }
                 }
+                throw new ArgumentException("Piece is not present on the board, it is not possible to determine the position",
+                    nameof(piece));
+            }
+            catch (ArgumentException e)
+            {
+                Console.Error.WriteLine(e.Message);
+                Console.Error.WriteLine(e.StackTrace);
             }
             return -1;
         }
